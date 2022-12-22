@@ -663,6 +663,18 @@ spec:
       - name: sysdig-host-scanner
         image: {{ template "nodeAnalyzer.image.hostScanner" . }}
         imagePullPolicy: {{ .Values.nodeAnalyzer.hostScanner.image.pullPolicy }}
+        livenessProbe:
+          httpGet:
+            port: 7000
+            path: /probes/liveness
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            port: 7000
+            path: /probes/readiness
+          initialDelaySeconds: 3
+          periodSeconds: 3
         securityContext:
           # The privileged flag is necessary for OCP 4.x and other Kubernetes setups that deny host filesystem access to
           # running containers by default regardless of volume mounts.

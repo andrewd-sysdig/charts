@@ -320,7 +320,7 @@ nodeAnalyzer:
 
     image:
       repository: sysdig/vuln-host-scanner
-      tag: 0.3.2
+      tag: unstable-20221222160119-0703f87b
       digest:
       pullPolicy: IfNotPresent
 
