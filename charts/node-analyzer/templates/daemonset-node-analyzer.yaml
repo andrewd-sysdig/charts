@@ -532,6 +532,18 @@ spec:
       - name: sysdig-runtime-scanner
         image: {{ template "nodeAnalyzer.image.runtimeScanner" . }}
         imagePullPolicy: {{ .Values.nodeAnalyzer.runtimeScanner.image.pullPolicy }}
+        livenessProbe:
+          httpGet:
+            port: 7000
+            path: /probes/liveness
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            port: 7000
+            path: /probes/readiness
+          initialDelaySeconds: 3
+          periodSeconds: 3
         securityContext:
             privileged: true
         resources:
